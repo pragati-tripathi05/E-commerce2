@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" /> 
+    <title>E-Commerce II (admin.html)</title>
+    <style>
+        body{
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        input,select {
+            display: block;
+            margin: 8px 0px;
+            font-size: 20px;
+            padding: 1%;
+        }
+        #sold{
+            display: inline-block;
+        }
+        option {
+            font-size: 25px;
+        }
+        form {
+            width: 400px;
+            border: 1px solid rgb(230, 230, 230);
+            margin: 3% auto;
+            padding: 3%;
+            background: rgb(248, 239, 239);
+        }
+    </style>
+</head>
+<body>
+    <a href="/e-commerce-2/products.html"><button>Products Page</button></a>
+    <div id="container">
+        <form action="" id="form">
+            <h1>Dashboard</h1>
+            <label>Product Name</label>
+            <input placeholder="Enter product name" id="name" type="text" />
+            <label>Category</label>
+            <input placeholder="Enter category" type="text" id="category" />
+            <label>Product Image</label>
+            <input id="image" type="text" placeholder="Enter Image URL" />
+            <label>Price</label>
+            <input placeholder="Enter price" type="number" id="price" />
+            <select id="gender">
+              <option value="--">Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+            <label>Sold</label>
+            <input id="sold" type="checkbox" >
+            <input id="add" type="submit" name="submit" value="Submit" />
+          </form>
+    </div>
+</body>
+</html>
+
+<script>
+    document.querySelector("form").addEventListener("submit", details);
+    var prod = JSON.parse(localStorage.getItem("products")) || [];
+
+    var products = [];
+    
+    function items(n,c,i,p,g,s){
+        this.name = n;
+        this.cat = c;
+        this.image = i;
+        this.price = p;
+        this.gender = g;
+        this.solding = s;
+    }
+
+    function details(){
+        event.preventDefault();
+
+        let name = document.querySelector("#name").value;
+        let cat = document.querySelector("#category").value;
+        let image = document.querySelector("#image").value;
+        let price = document.querySelector("#price").value;
+        let gender = document.querySelector("#gender").value;
+        let solding = document.getElementById("sold", sold).checked;
+        function sold(){
+            var status = false;
+            if(document.getElementById("sold").checked)
+                status = true;
+            console.log(status);
+        }
+        
+        let prodObj = new items(name,cat,image,price,gender,solding)
+        products.push(prodObj);
+        localStorage.setItem("products", JSON.stringify(products));
+        alert("item added");
+
+    }    
+</script>

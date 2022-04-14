@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data:;base64,iVBORwOKGO=" /> 
+    <title>E-Commerce II</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        #box{
+            text-align: center;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            width: 80%;
+            margin: auto;
+            height: 100%;
+            text-align: center;
+            padding: 10px;
+            /* border: 1px solid red; */
+            height: auto;
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 70px;
+        }
+        .icon {
+            width: 35px;
+            height: 35px;
+            font-family: "Poppins", sans-serif;
+            margin: 10px;
+            margin-bottom: 0ch;
+            margin-top: 0px;
+            padding-top: 0px;
+            position: relative;
+            top: -40px;
+            left: 80.5%;
+        }
+        .bagC{
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            font-weight: bold;
+            font-size: 19px;
+            border-radius: 50%;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+        .countPlace2{
+            top: 65px;
+            left: 81.5%;
+        }
+        #box>div{
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+<body>
+    <a href="/e-commerce-2/index.html"><button>Admin Page</button></a>
+    <h1>Products</h1>
+
+    <img class="icon" src="https://img.icons8.com/ios/50/000000/shopping-bag--v1.png" />
+    <div class="bagC countPlace2">0</div>
+    <div id="box"></div>
+</body>
+</html>
+
+<script>
+    var prod = JSON.parse(localStorage.getItem("products"));
+
+    prod.map(function (elem,index){
+        var box = document.createElement("div");
+
+        var img = document.createElement("img");
+        img.src = elem.image;
+
+        var name = document.createElement("h2");
+        name.innerText = elem.name;
+
+        var categ = document.createElement("h5");
+        categ.innerText = elem.cat;
+
+        var gender = document.createElement("h5");
+        gender.innerText = elem.gender;
+
+        var price = document.createElement("h3");
+        price.innerText = elem.price;
+
+        var sold = document.createElement("button");
+        sold.setAttribute("id","sold");
+        sold.style.backgroundColor = "red";
+
+        if(elem.solding === true)
+        {
+            sold.innerText = "Sold";
+            sold.style.backgroundColor = "red";
+        }   
+        else
+        {
+            sold.innerText = "Available";
+            sold.style.backgroundColor = "Green";
+        }
+            
+
+         sold.addEventListener("click",function(){
+            soldToggle(sold);
+        });
+
+
+        var btn = document.createElement("button");
+        btn.innerText = "Remove";
+        btn.setAttribute("id", "remove");
+        btn.addEventListener("click",function(){
+            removeItem(elem,index);
+        });
+
+
+        box.append(img,name,categ,gender,price,sold,btn);
+        document.querySelector("#box").append(box);
+        
+
+        document.querySelector(".countPlace2").innerText = prod.length
+    });
+
+    function soldToggle(sold)
+    {
+        console.log(sold.innerText);
+        if(sold.innerText = "Sold")
+        {
+            sold.innerText = "Available";
+            sold.style.backgroundColor = "green";
+        }
+
+        if(sold.innerText = "Available")
+        {
+            sold.innerText = "Sold";
+            sold.style.backgroundColor = "red";
+        }
+    }
+
+    function removeItem(elem, index)
+    {
+        prod.splice(index, 1);
+        localStorage.setItem("products", JSON.stringify(prod));
+        window.location.reload();
+    }
+</script>
